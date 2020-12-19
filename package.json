@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "deploy": "",
+    "deploy": "npx pm2 deploy ecosystem.json production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

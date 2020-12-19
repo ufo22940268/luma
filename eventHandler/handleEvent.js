@@ -46,8 +46,6 @@ function removeNoiseCharacters(text) {
 }
 
 module.exports = async (event) => {
-  if (!fromAllowedUser(event)) return;
-
   let info;
   let text;
   let threadTs;
@@ -55,6 +53,7 @@ module.exports = async (event) => {
     text = await getParentThread(event);
     threadTs = event.thread_ts;
   } else {
+    if (!fromAllowedUser(event)) return;
     text = event.text;
     threadTs = event.ts;
   }
