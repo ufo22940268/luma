@@ -27,7 +27,7 @@ jobs:
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
         config: ${{ secrets.CONFIG }} # ssh_config; optional
     - name: rsync over ssh
-      run: rsync ./package.json root@biubiubiu.biz:/tmp/
+      run: rsync ./package.json biubiubiu.biz:/tmp/
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
