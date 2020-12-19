@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "deploy": "npx pm2 deploy ecosystem.json production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
