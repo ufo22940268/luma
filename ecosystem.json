@@ -6,6 +6,8 @@
       env: {
         COMMON_VARIABLE: "true"
       },
+      "instances": 8,
+      "exec_mode": "cluster",
       env_production: {
         NODE_ENV: "production"
       }
