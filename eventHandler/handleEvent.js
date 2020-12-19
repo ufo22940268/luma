@@ -16,9 +16,12 @@ function fromAllowedUser(event) {
   return allowedUsers.includes(event.user);
 }
 
+const devLuma = '<@U01J03EMAJU>';
+const productionLuma = '<@U01GV0GTQG7>';
+const luma = process.env.NODE_ENV === 'development' ? devLuma : productionLuma;
 
 function atLuma(text) {
-  return text === '<@U01GV0GTQG7>';
+  return text === luma;
 }
 
 async function replyInfo(channel, threadTs, info) {
