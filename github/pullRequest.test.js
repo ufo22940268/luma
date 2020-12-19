@@ -16,6 +16,7 @@ describe('Pull Request', () => {
       const r = await parse('42939');
       expect(r).toHaveProperty('demobox', expect.anything());
       expect(r.demobox).toHaveProperty('url', expect.anything());
+      expect(1).toEqual(2);
     });
   });
 });
