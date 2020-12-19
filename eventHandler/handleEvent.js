@@ -45,7 +45,15 @@ function removeNoiseCharacters(text) {
   return text.replace(/[ \<\>]/g, '');
 }
 
+function isFromRobotItsSelf({user}) {
+  return [devLuma, productionLuma].includes(user);
+}
+
 module.exports = async (event) => {
+  if (isFromRobotItsSelf(event)) {
+    return;
+  }
+
   let info;
   let text;
   let threadTs;
