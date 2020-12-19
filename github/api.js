@@ -1,3 +1,4 @@
+require('dotenv').config()
 const {request} = require("@octokit/request");
 
 const privateKey = process.env.GITHUB_PRIVATE_KEY;
