@@ -1,15 +1,15 @@
-jest.mock('../github/pullRequest');
-jest.mock('../slack/event', () => {
-  return {...jest.requireActual('../slack/event'), getParentThread: jest.fn(async () => 'wefoijwoiejf')};
-});
-const event = require('../slack/event');
-const handleReaction = require('./handleReaction');
-const {setQAVerifiedLabel} = require('../github/pullRequest');
-
 describe('Reaction Added Handler', () => {
 
+  jest.doMock('../slack/event');
+  jest.doMock('../github/pullRequest');
+  const handleReaction = require('./handleReaction');
+  const event = require('../slack/event');
+  event.getParentThread.mockImplementation(async () => 'PTAL: https://github.com/UrbanCompass/uc-frontend/pull/43089');
+  let {setQAVerifiedLabel, isPullRequest} = require('../github/pullRequest');
+  isPullRequest.mockReturnValue(true);
+
   beforeEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   let SAMPLE_EVENT = {
@@ -27,8 +27,9 @@ describe('Reaction Added Handler', () => {
 
   it('should react to QA Verified reaction ', async () => {
     await handleReaction(SAMPLE_EVENT);
+    expect(event.getParentThread).toBeCalled();
     expect(setQAVerifiedLabel).toBeCalled();
-    expect(event.getParentThread).toBeCalledWith(SAMPLE_EVENT);
+    expect(isPullRequest).toBeCalled();
   });
 
   it('should not handle event from other users ', () => {

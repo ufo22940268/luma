@@ -40,10 +40,6 @@ Demobox: ${info.demobox.url}`;
   await sendMessage(channel, threadTs, {text: message});
 }
 
-function removeNoiseCharacters(text) {
-  return text.replace(/[ \<\>]/g, '');
-}
-
 function isFromRobotItsSelf({user}) {
   return [devLuma, productionLuma].includes(user);
 }
@@ -65,7 +61,6 @@ module.exports = async (event) => {
     threadTs = event.ts;
   }
 
-  text = removeNoiseCharacters(text);
   if (text && isPullRequest(text)) {
     let pullRequestId = getPullRequestId(text);
     if (!pullRequestId) return;

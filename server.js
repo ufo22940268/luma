@@ -19,8 +19,8 @@ slackEvents.on('message', (event) => {
 // male-doctor
 // female-doctor
 slackEvents.on('reaction_added', (event) => {
-  console.log(`reaction Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
-  handleReaction(event);
+  // console.log(`reaction Received a message event: user ${event.user} in channel ${event.channel} says ${event.text}`);
+  // handleReaction(event);
 });
 
 // Handle errors (see `errorCodes` export)
