@@ -2,7 +2,7 @@ jest.mock('../github/pullRequest', () => ({
   ...jest.requireActual('../github/pullRequest'), parse: jest.fn()
 }));
 const {parse} = require('../github/pullRequest');
-const handle = require('./handleEvent.js');
+const handle = require('./handleMessage');
 describe('Event Handler', () => {
 
   beforeEach(() => {

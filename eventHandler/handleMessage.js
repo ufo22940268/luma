@@ -5,15 +5,14 @@
 "use strict";
 
 const moment = require("moment");
+const {ALLOWED_USERS} = require("../slack/constants");
 
 const {sendMessage} = require("../slack/message");
 const {getParentThread} = require("../slack/event");
 const {parse, isPullRequest, getPullRequestId} = require('../github/pullRequest');
 
-const allowedUsers = ['U01EJL92F0F'];
-
 function fromAllowedUser(event) {
-  return allowedUsers.includes(event.user);
+  return ALLOWED_USERS.includes(event.user);
 }
 
 const devLuma = '<@U01J03EMAJU>';
@@ -66,7 +65,7 @@ module.exports = async (event) => {
     threadTs = event.ts;
   }
 
-  text = removeNoiseCharacters(text)
+  text = removeNoiseCharacters(text);
   if (text && isPullRequest(text)) {
     let pullRequestId = getPullRequestId(text);
     if (!pullRequestId) return;
