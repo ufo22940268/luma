@@ -69,6 +69,5 @@ module.exports = async (event) => {
   }
 
   if (!info) return;
-  console.log('info: ' + JSON.stringify(info, null, 4) + '\n');
   await replyInfo(event.channel, threadTs, info);
 };

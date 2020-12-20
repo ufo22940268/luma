@@ -10,6 +10,11 @@ exports.sendMessage = async (channel, threadTs, {text} = {text: ''}) => {
   if (!threadTs) {
     throw new Error('thread ts is required');
   }
+
+  if (!channel) {
+    throw new Error('channel is needed');
+  }
+
   // See: https://api.slack.com/methods/chat.postMessage
   const res = await web.chat.postMessage({channel: channel, thread_ts: threadTs, text});
 
