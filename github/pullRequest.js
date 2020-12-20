@@ -54,5 +54,10 @@ exports.getPullRequestId = (text) => {
 };
 
 exports.setQAVerifiedLabel = async (prId) => {
-  console.log('setQAVerifiedLabel ' + prId);
+  await requestWithAuth('POST /repos/{owner}/{repo}/issues/{issue_number}/labels', {
+    owner,
+    repo,
+    issue_number: prId,
+    labels: ['QA-Verified']
+  });
 };

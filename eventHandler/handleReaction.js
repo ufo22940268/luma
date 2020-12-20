@@ -10,7 +10,6 @@ module.exports = async (event) => {
   if (!ALLOWED_USERS.includes(event.user)) return;
   if (!VERIFIED_EMOJI.includes(event.reaction)) return;
   let text = await getThreadText(event.item.channel, event.item.ts);
-  console.log('text: ' + JSON.stringify(text, null, 4) + '\n');
   if (isPullRequest(text)) {
     await setQAVerifiedLabel(getPullRequestId(text));
   }

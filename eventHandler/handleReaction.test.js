@@ -26,14 +26,14 @@ describe('Reaction Added Handler', () => {
   };
 
   it('should react to QA Verified reaction ', async () => {
-    event.getParentThread.mockImplementation(async () => 'PTAL: https://github.com/UrbanCompass/uc-frontend/pull/43089');
+    event.getThreadText.mockImplementation(async () => 'PTAL: https://github.com/UrbanCompass/uc-frontend/pull/43089');
     await handleReaction(SAMPLE_EVENT);
-    expect(event.getParentThread).toBeCalled();
+    expect(event.getThreadText).toBeCalled();
     expect(isPullRequest).toBeCalled();
     expect(setQAVerifiedLabel).toBeCalled();
 
     jest.clearAllMocks();
-    event.getParentThread.mockImplementation(async () => 'woeifjowiejf');
+    event.getThreadText.mockImplementation(async () => 'woeifjowiejf');
     await handleReaction(SAMPLE_EVENT);
     expect(isPullRequest).toBeCalled();
     expect(setQAVerifiedLabel).not.toBeCalled();
