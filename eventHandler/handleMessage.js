@@ -20,7 +20,7 @@ const productionLuma = '<@U01GV0GTQG7>';
 const luma = ['development', 'test'].includes(process.env.NODE_ENV) ? devLuma : productionLuma;
 
 function atLuma(text) {
-  return text === luma;
+  return text && text.trim() === luma;
 }
 
 async function replyInfo(channel, threadTs, info) {
