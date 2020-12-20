@@ -17,7 +17,7 @@ function fromAllowedUser(event) {
 
 const devLuma = '<@U01J03EMAJU>';
 const productionLuma = '<@U01GV0GTQG7>';
-const luma = process.env.NODE_ENV === 'development' ? devLuma : productionLuma;
+const luma = ['development', 'test'].includes(process.env.NODE_ENV) ? devLuma : productionLuma;
 
 function atLuma(text) {
   return text === luma;
