@@ -1,3 +1,5 @@
+const {getThreadText} = require("../slack/event");
+const {getPullRequestId} = require("../github/pullRequest");
 const {isPullRequest} = require("../github/pullRequest");
 const {getParentThread} = require("../slack/event");
 const {VERIFIED_EMOJI} = require("../slack/constants");
@@ -7,9 +9,9 @@ const {setQAVerifiedLabel} = require("../github/pullRequest");
 module.exports = async (event) => {
   if (!ALLOWED_USERS.includes(event.user)) return;
   if (!VERIFIED_EMOJI.includes(event.reaction)) return;
-  let parentThread = await getParentThread(event);
-  console.log('parentThread: ' + JSON.stringify(parentThread, null, 4) + '\n');
-  if (isPullRequest(parentThread)) {
-    await setQAVerifiedLabel();
+  let text = await getThreadText(event.item.channel, event.item.ts);
+  console.log('text: ' + JSON.stringify(text, null, 4) + '\n');
+  if (isPullRequest(text)) {
+    await setQAVerifiedLabel(getPullRequestId(text));
   }
 };

@@ -13,16 +13,19 @@ function removeNoiseCharacters(text) {
   return text.replace(/[ \<\>]/g, '');
 }
 
-exports.getParentThread = async (event) => {
-  let result = await web.conversations.replies({channel: event.channel, ts: event.thread_ts});
+exports.getThreadText = async (channel, ts) => {
+  let result = await web.conversations.replies({channel: channel, ts: ts});
   if (!result.messages) {
     return '';
   }
   return removeNoiseCharacters(result.messages[0].text);
 };
 
-exports.t = () => {
-
-
+exports.getParentThread = async (event) => {
+  let result = await web.conversations.replies({channel: event.channel, ts: event.thread_ts});
+  if (!result.messages) {
+    return '';
+  }
+  return removeNoiseCharacters(result.messages[0].text);
 };
 

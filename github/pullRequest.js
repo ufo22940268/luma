@@ -53,6 +53,6 @@ exports.getPullRequestId = (text) => {
   return text.match(/(PTAL|ptal):.+github.+?(\d+)/)[2];
 };
 
-exports.setQAVerifiedLabel = async () => {
-
+exports.setQAVerifiedLabel = async (prId) => {
+  console.log('setQAVerifiedLabel ' + prId);
 };
