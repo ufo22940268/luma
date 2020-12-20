@@ -24,8 +24,7 @@ function atLuma(text) {
 }
 
 async function replyInfo(channel, threadTs, info) {
-  let message = `
-  `;
+  let message = "";
 
   if (info.jira) {
     message += `
@@ -37,6 +36,7 @@ Jira: ${info.jira.url}`;
 Demobox: ${info.demobox.url}`;
   }
 
+  if (!message) return;
   await sendMessage(channel, threadTs, {text: message});
 }
 

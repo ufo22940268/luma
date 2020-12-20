@@ -33,6 +33,17 @@ describe('Event Handler', () => {
     expect(message.sendMessage).toBeCalled();
   });
 
+  it('should not send message when parse return null', async () => {
+    parse.mockReset();
+    parse.mockReturnValue({});
+    let handle = require('./handleMessage');
+    await handle({
+      text: 'ptal: https://github.com/UrbanCompass/uc-frontend/pull/43089',
+      user: 'U01EJL92F0F'
+    });
+    expect(message.sendMessage).not.toBeCalled();
+  });
+
   it('should process at message', async () => {
     event.getParentThread.mockReturnValue('ptal: https://github.com/UrbanCompass/uc-frontend/pull/43089');
     await handle({
