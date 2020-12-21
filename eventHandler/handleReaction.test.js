@@ -2,6 +2,8 @@ jest.mock('../slack/event');
 jest.mock('../github/pullRequest');
 const handleReaction = require('./handleReaction');
 const event = require('../slack/event');
+const {ALLOWED_USERS} = require("../slack/constants");
+const {LUMA_NAME} = require("../slack/constants");
 let {setQAVerifiedLabel, isPullRequest} = require('../github/pullRequest');
 isPullRequest.mockImplementation(jest.requireActual('../github/pullRequest').isPullRequest);
 
@@ -26,16 +28,22 @@ describe('Reaction Added Handler', () => {
   };
 
   it('should react to QA Verified reaction ', async () => {
-    event.getThreadText.mockImplementation(async () => 'PTAL: https://github.com/UrbanCompass/uc-frontend/pull/43089');
+    event.getThread.mockImplementation(async () => ({
+      user: ALLOWED_USERS[0],
+      text: 'PTAL: https://github.com/UrbanCompass/uc-frontend/pull/43089'
+    }));
     await handleReaction(SAMPLE_EVENT);
-    expect(event.getThreadText).toBeCalled();
+    expect(event.getThread).toBeCalled();
     expect(isPullRequest).toBeCalled();
     expect(setQAVerifiedLabel).toBeCalled();
 
     jest.clearAllMocks();
-    event.getThreadText.mockImplementation(async () => 'woeifjowiejf');
+    event.getThread.mockImplementation(async () => ({
+      user: 'swefwef',
+      text: 'PTAL: https://github.com/UrbanCompass/uc-frontend/pull/43089'
+    }));
     await handleReaction(SAMPLE_EVENT);
-    expect(isPullRequest).toBeCalled();
+    expect(isPullRequest).not.toBeCalled();
     expect(setQAVerifiedLabel).not.toBeCalled();
   });
 

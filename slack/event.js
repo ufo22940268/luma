@@ -5,20 +5,20 @@
 
 const web = require('./web');
 
-function removeNoiseCharacters(text) {
+exports.removeNoiseCharacters = function (text) {
   if (!text) {
     return text;
   }
 
   return text.replace(/[ \<\>]/g, '');
-}
+};
 
-exports.getThreadText = async (channel, ts) => {
+exports.getThread = async (channel, ts) => {
   let result = await web.conversations.replies({channel: channel, ts: ts});
   if (!result.messages) {
-    return '';
+    return;
   }
-  return removeNoiseCharacters(result.messages[0].text);
+  return result.messages[0];
 };
 
 exports.getParentThread = async (event) => {
