@@ -2,6 +2,7 @@ const {requestWithAuth} = require("./api");
 
 const owner = "UrbanCompass";
 const repo = "uc-frontend";
+const urlUtil = require('url');
 
 function parseUrlFromBody(body) {
   return body.match(/\((http:.+)\)/)[1];
@@ -20,7 +21,7 @@ async function parseDemobox(pullRequestId) {
 
   const {body} = comment;
   const url = parseUrlFromBody(body);
-  return {url};
+  return {url: urlUtil.resolve(url, '/app/creative-studio/sign-center')};
 }
 
 async function parseJira(pullRequestId) {
