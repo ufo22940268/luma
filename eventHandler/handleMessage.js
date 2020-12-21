@@ -4,7 +4,6 @@
 
 "use strict";
 
-const moment = require("moment");
 const {ALLOWED_USERS} = require("../slack/constants");
 
 const {sendMessage} = require("../slack/message");
