@@ -6,6 +6,8 @@ const {ALLOWED_USERS} = require("../slack/constants");
 const {LUMA_NAME} = require("../slack/constants");
 let {setQAVerifiedLabel, isPullRequest} = require('../github/pullRequest');
 isPullRequest.mockImplementation(jest.requireActual('../github/pullRequest').isPullRequest);
+const actualEvent = jest.requireActual('../slack/event');
+event.removeNoiseCharacters.mockImplementation(actualEvent.removeNoiseCharacters);
 
 describe('Reaction Added Handler', () => {
 
