@@ -47,7 +47,7 @@ describe('Event Handler', () => {
   it('should process at message', async () => {
     event.getParentThread.mockReturnValue('ptal: https://github.com/UrbanCompass/uc-frontend/pull/43089');
     await handle({
-      text: '<@U01J03EMAJU>'
+      text: 'wefoijwoiejf<@U01J03EMAJU>wefwef'
     });
     expect(parse).toBeCalled();
   });
