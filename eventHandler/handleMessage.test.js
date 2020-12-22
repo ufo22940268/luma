@@ -24,7 +24,7 @@ describe('Event Handler', () => {
       user: 'U01EJL92F0F'
     });
     expect(parse).toBeCalledWith('43089');
-    expect(message.sendMessage).toBeCalledWith(undefined, undefined, {text: expect.stringContaining('Created: faaf')});
+    expect(message.sendMessage).toBeCalledWith(undefined, undefined, {text: expect.stringContaining(' (faaf)')});
     jest.clearAllMocks();
     await handle({
       text: 'ptal: https://github.com/UrbanCompass/uc-frontend/pull/43089',

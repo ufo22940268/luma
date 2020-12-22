@@ -32,8 +32,7 @@ Jira: ${info.jira.url}`;
 
   if (info.demobox) {
     message += `
-Demobox: ${info.demobox.url}
-Created: ${info.demobox.time}`;
+Demobox: ${info.demobox.url} (${info.demobox.time})`;
   }
 
   if (!message) return;
