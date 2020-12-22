@@ -2,8 +2,8 @@ const {removeNoiseCharacters} = require("../slack/event");
 const {getThread} = require("../slack/event");
 const {getPullRequestId} = require("../github/pullRequest");
 const {isPullRequest} = require("../github/pullRequest");
-const {VERIFIED_EMOJI} = require("../slack/constants");
-const {ALLOWED_USERS} = require("../slack/constants");
+const {VERIFIED_EMOJI} = require("../constants");
+const {ALLOWED_USERS} = require("../constants");
 const {setQAVerifiedLabel} = require("../github/pullRequest");
 
 module.exports = async (event) => {

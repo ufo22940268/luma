@@ -2,7 +2,6 @@ jest.mock('../slack/message');
 jest.mock('../slack/event');
 jest.mock('../github/pullRequest');
 const {parse, isPullRequest, getPullRequestId} = require('../github/pullRequest');
-parse.mockImplementation(async () => ({demobox: {url: 'aa'}}));
 
 const event = require('../slack/event');
 const actualPullRequest = jest.requireActual('../github/pullRequest');
@@ -19,11 +18,13 @@ describe('Event Handler', () => {
   });
 
   it('should process pull request message', async () => {
+    parse.mockImplementation(async () => ({demobox: {url: 'aa', time: 'faaf'}}));
     await handle({
       text: 'PTAL: https://github.com/UrbanCompass/uc-frontend/pull/43089',
       user: 'U01EJL92F0F'
     });
     expect(parse).toBeCalledWith('43089');
+    expect(message.sendMessage).toBeCalledWith(undefined, undefined, {text: expect.stringContaining('Created: faaf')});
     jest.clearAllMocks();
     await handle({
       text: 'ptal: https://github.com/UrbanCompass/uc-frontend/pull/43089',

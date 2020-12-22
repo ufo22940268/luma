@@ -4,7 +4,7 @@
 
 "use strict";
 
-const {ALLOWED_USERS} = require("../slack/constants");
+const {ALLOWED_USERS} = require("../constants");
 
 const {sendMessage} = require("../slack/message");
 const {getParentThread} = require("../slack/event");
@@ -32,7 +32,8 @@ Jira: ${info.jira.url}`;
 
   if (info.demobox) {
     message += `
-Demobox: ${info.demobox.url}`;
+Demobox: ${info.demobox.url}
+Created: ${info.demobox.time}`;
   }
 
   if (!message) return;

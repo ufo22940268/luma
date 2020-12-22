@@ -1,8 +1,10 @@
+
 const {requestWithAuth} = require("./api");
 
-const owner = "UrbanCompass";
-const repo = "uc-frontend";
+const moment = require('moment');
 const urlUtil = require('url');
+const {COMPASS_FRONTEND_REPO} = require("../constants");
+const {COMPASS_OWNER} = require("../constants");
 
 function parseUrlFromBody(body) {
   return body.match(/\((http:.+)\)/)[1];
@@ -10,8 +12,8 @@ function parseUrlFromBody(body) {
 
 async function parseDemobox(pullRequestId) {
   const {data} = await requestWithAuth("GET /repos/{owner}/{repo}/issues/{issue_number}/comments", {
-    owner,
-    repo,
+    owner: COMPASS_OWNER,
+    repo: COMPASS_FRONTEND_REPO,
     issue_number: pullRequestId
   });
   const comment = data.find(t => t.body.includes('Demobox Link'));
@@ -19,15 +21,15 @@ async function parseDemobox(pullRequestId) {
     return;
   }
 
-  const {body} = comment;
+  const {body, updated_at} = comment;
   const url = parseUrlFromBody(body);
-  return {url: urlUtil.resolve(url, '/app/creative-studio/sign-center')};
+  return {url: urlUtil.resolve(url, '/app/creative-studio/sign-center'), time: moment(updated_at).fromNow()};
 }
 
 async function parseJira(pullRequestId) {
   const {data} = await requestWithAuth("GET /repos/{owner}/{repo}/issues/{issue_number}", {
-    owner,
-    repo,
+    owner: COMPASS_OWNER,
+    repo: COMPASS_FRONTEND_REPO,
     issue_number: pullRequestId
   });
 
@@ -56,8 +58,8 @@ exports.getPullRequestId = (text) => {
 
 exports.setQAVerifiedLabel = async (prId) => {
   await requestWithAuth('POST /repos/{owner}/{repo}/issues/{issue_number}/labels', {
-    owner,
-    repo,
+    owner: COMPASS_OWNER,
+    repo: COMPASS_FRONTEND_REPO,
     issue_number: prId,
     labels: ['QA-Verified']
   });
