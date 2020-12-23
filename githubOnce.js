@@ -3,9 +3,8 @@
  */
 "use strict";
 require('dotenv').config();
-const {getRecentCompletedPullRequest} = require('../github/api');
-const {parse} = require('../github/pullRequest');
-
+const {parse} = require('./github/pullRequest');
+const {getRecentCompletedPullRequest} = require('./github/api');
 
 (async () => {
   const pullId = "42844";

@@ -12,11 +12,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@slack/web-api": "^5.14.0",
-    "@slack/events-api": "^2.3.4",
     "@octokit/request": "^5.4.12",
+    "@slack/events-api": "^2.3.4",
+    "@slack/web-api": "^5.14.0",
+    "dotenv": "^8.2.0",
     "moment": "^2.29.1",
-    "dotenv": "^8.2.0"
+    "sleep-promise": "^9.0.0"
   },
   "devDependencies": {
     "jest": "^26.6.3",
