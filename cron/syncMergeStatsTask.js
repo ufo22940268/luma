@@ -7,9 +7,12 @@ const path = require("path");
 require('dotenv').config({path: path.join(__dirname, '../.env')});
 const {getRecentCompletedPullRequest} = require("../github/api");
 const web = require('../slack/web');
+const {isPullRequest} = require("../github/pullRequest");
 const {SLACK_CHANNELS} = require("../constants");
 
 function matchPR(text, mergedUrls) {
+  if (!isPullRequest(text)) return;
+
   let m = text.trim().match(/uc-frontend\/(pull\/\d+)/);
   if (!m) return;
   return mergedUrls.some(u => u.includes(m[1]));
@@ -25,7 +28,7 @@ async function sync() {
     for (let thread of threads) {
       try {
         await web.reactions.add({channel, timestamp: thread, name: 'merge'});
-      } catch(e) {
+      } catch (e) {
         if (e.data && e.data.error === 'already_reacted') {
           //Do nothing
         } else {
@@ -39,7 +42,7 @@ async function sync() {
 exports.sync = sync;
 
 if (require.main === module) {
-  (sync()).catch(console.error).finally(() => process.exit(0))
+  (sync()).catch(console.error).finally(() => process.exit(0));
 }
 
 

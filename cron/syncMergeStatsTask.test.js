@@ -14,7 +14,7 @@ describe('syncMergeStatsTask', () => {
         {
           "type": "message",
           "user": "U012AB3CDE",
-          "text": "ptal: https://github.com/UrbanCompass/uc-frontend/pull/43090",
+          "text": "aefweijif: https://github.com/UrbanCompass/uc-frontend/pull/43089",
           "ts": "1512085950.000216"
         },
         {
