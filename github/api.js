@@ -31,7 +31,6 @@ exports.getRecentCompletedPullRequest = async () => {
   let r = [];
   for (let i = 1; i <= pageCount; i++) {
     r = r.concat(await getRecentCompletedPullRequestOnPage(i));
-    await sleep(2000);
   }
   return r;
 };
