@@ -22,7 +22,7 @@ async function getRecentCompletedPullRequestOnPage(page) {
     per_page: 100,
     page
   });
-  data = data.filter(t => t.user.login === 'ufo22940268').filter(t => !!t.merged_at);
+  data = data.filter(t => !!t.merged_at);
   return data.map(t => ({url: t.html_url}));
 }
 
