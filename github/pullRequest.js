@@ -1,4 +1,3 @@
-
 const {requestWithAuth} = require("./api");
 
 const moment = require('moment');
@@ -23,7 +22,10 @@ async function parseDemobox(pullRequestId) {
 
   const {body, updated_at} = comment;
   const url = parseUrlFromBody(body);
-  return {url: urlUtil.resolve(url, '/app/creative-studio/sign-center'), time: moment(updated_at).fromNow()};
+  return {
+    url: urlUtil.resolve(url, '/app/creative-studio/sign-center'),
+    time: moment(updated_at).fromNow()
+  };
 }
 
 async function parseJira(pullRequestId) {
@@ -48,8 +50,10 @@ exports.parse = async (pullRequestId) => {
   };
 };
 
+exports.parseJira = parseJira;
+
 exports.isPullRequest = (text) => {
-  return text && text.match(/(PTAL|ptal):.+github.+/);
+  return text && text.trim().match(/^(PTAL|ptal):.+github.+/);
 };
 
 exports.getPullRequestId = (text) => {

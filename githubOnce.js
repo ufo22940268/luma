@@ -7,9 +7,8 @@ const {parse} = require('./github/pullRequest');
 const {getRecentCompletedPullRequest} = require('./github/api');
 
 (async () => {
-  const pullId = "42844";
-  let parse1 = await getRecentCompletedPullRequest();
-  console.log('parse1: ' + JSON.stringify(parse1, null, 4) + '\n');
+    let parse1 = await getRecentCompletedPullRequest();
+    console.log('parse1: ' + JSON.stringify(parse1, null, 4) + '\n');
 })().catch(e => {
-  console.error(e);
+    console.error(e);
 });
