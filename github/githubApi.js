@@ -1,7 +1,6 @@
 const {COMPASS_FRONTEND_REPO} = require('../constants');
 const {COMPASS_OWNER} = require('../constants');
-require('dotenv')
-    .config();
+require('dotenv').config();
 const {request} = require('@octokit/request');
 
 const privateKey = process.env.GITHUB_PRIVATE_KEY;
