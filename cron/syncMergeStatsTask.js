@@ -6,7 +6,7 @@
 const path = require('path');
 require('dotenv')
     .config({path: path.join(__dirname, '../.env')});
-const {getRecentCompletedPullRequest} = require('../github/api');
+const {getRecentCompletedPullRequest} = require('../github/githubApi');
 const web = require('../slack/web');
 const {parseJira} = require("../github/pullRequest");
 const {isPullRequest} = require('../github/pullRequest');

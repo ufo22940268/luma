@@ -1,4 +1,4 @@
-const {requestWithAuth} = require("./api");
+const {requestWithAuth} = require("./githubApi");
 
 const moment = require('moment');
 const urlUtil = require('url');

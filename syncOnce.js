@@ -6,7 +6,7 @@ const {sync} = require("./cron/syncMergeStatsTask");
 require('dotenv').config();
 
 (async () => {
-    await sync()
+    // await sync()
 })().catch(e => {
     console.error(e);
 });

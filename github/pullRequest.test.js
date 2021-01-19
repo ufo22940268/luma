@@ -4,7 +4,7 @@ describe('Pull Request', () => {
   describe('For Sample 1', () => {
     beforeEach(() => {
       jest.resetModules();
-      jest.mock('./api', () => ({
+      jest.mock('./githubApi', () => ({
         requestWithAuth: async () => {
           return require(`./__fixtures__/pr_42939.json`);
         }
