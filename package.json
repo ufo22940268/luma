@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js   ",
+    "startA": "nodemon server.js   ",
     "deploy": "npx pm2 deploy ecosystem.json production",
     "test": "jest"
   },
