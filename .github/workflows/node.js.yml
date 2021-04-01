@@ -33,4 +33,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm test
+    - run: git status
     - run: npm run deploy
