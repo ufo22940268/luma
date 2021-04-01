@@ -67,6 +67,6 @@ module.exports = async (event) => {
     info = await parse(pullRequestId);
   }
 
-  if (!info) return;
+  if (!info || info == {}) return;
   await replyInfo(event.channel, threadTs, info);
 };
