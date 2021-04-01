@@ -23,7 +23,7 @@ async function parseDemobox(pullRequestId) {
   const {body, updated_at} = comment;
   const url = parseUrlFromBody(body);
   return {
-    url: urlUtil.resolve(url, '/app/creative-studio/sign-center'),
+    url: url,
     time: moment(updated_at).fromNow()
   };
 }
@@ -43,10 +43,24 @@ async function parseJira(pullRequestId) {
   }
 }
 
+const APPEND_PATH_MAP = [{prefix: ['DAP'], path: '/app/ads-center/digital/home'}]
+
 exports.parse = async (pullRequestId) => {
+  const demobox = await parseDemobox(pullRequestId);
+  const jira = await parseJira(pullRequestId);
+  if (jira && jira.url && demobox) {
+    const paths = jira.url.split('/');
+    const lastPath = paths[paths.length - 1];
+    const prefix = lastPath && lastPath.split('-')[0];
+    const append = APPEND_PATH_MAP.find(t => t.prefix == prefix);
+    if (append) {
+      demobox.url = urlUtil.resolve(demobox.url, append.path);
+    } else {
+      demobox.url = urlUtil.resolve(demobox.url, '/app/creative-studio/sign-center');
+    }
+  }
   return {
-    demobox: await parseDemobox(pullRequestId),
-    jira: await parseJira(pullRequestId),
+    demobox: demobox,
   };
 };
 
