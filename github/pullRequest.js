@@ -1,4 +1,4 @@
-const {requestWithAuth} = require("./githubApi");
+const {requestWithAuth, getLastCommitId} = require("./githubApi");
 
 const moment = require('moment');
 const urlUtil = require('url');
@@ -45,6 +45,18 @@ async function parseJira(pullRequestId) {
 
 const APPEND_PATH_MAP = [{prefix: ['DAP'], path: '/app/ads-center/digital/home'}]
 
+async function isLatestDemobox(demobox, pullRequestId) {
+  if (!demobox || !demobox.url) return true;
+
+  const commitId = await getLastCommitId(pullRequestId);
+  if (!commitId) return true;
+
+  const match = demobox.url.match(/hydra-\d+-([^-]+)/)
+  if (!match) return true;
+
+  return match[1] == commitId;
+}
+
 exports.parse = async (pullRequestId) => {
   const demobox = await parseDemobox(pullRequestId);
   const jira = await parseJira(pullRequestId);
@@ -59,8 +71,15 @@ exports.parse = async (pullRequestId) => {
       demobox.url = urlUtil.resolve(demobox.url, '/app/creative-studio/sign-center');
     }
   }
+
+  const errors = [];
+  if (!await isLatestDemobox(demobox, pullRequestId)) {
+    errors.push('NOT_LATEST');
+  }
+
   return {
     demobox: demobox,
+    errors
   };
 };
 

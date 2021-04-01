@@ -33,3 +33,15 @@ exports.getRecentCompletedPullRequest = async () => {
     }
     return r;
 };
+
+exports.getLastCommitId = async function getLastCommitId(pullNumber) {
+    let {data} = await requestWithAuth('GET /repos/{owner}/{repo}/pulls/{pull_number}', {
+        owner: COMPASS_OWNER,
+        repo: COMPASS_FRONTEND_REPO,
+        pull_number: pullNumber
+    });
+
+    if (data && data.head && data.head.sha) {
+        return data.head.sha;
+    }
+}

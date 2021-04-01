@@ -25,6 +25,7 @@ describe('Event Handler', () => {
     });
     expect(parse).toBeCalledWith('43089');
     expect(message.sendMessage).toBeCalledWith(undefined, undefined, {text: expect.stringContaining(' (faaf)')});
+    expect(message.sendMessage).toBeCalledWith(undefined, undefined, {text: expect.not.stringContaining('Attention')});
     jest.clearAllMocks();
     await handle({
       text: 'ptal: https://github.com/UrbanCompass/uc-frontend/pull/43089',
@@ -32,6 +33,16 @@ describe('Event Handler', () => {
     });
     expect(parse).toBeCalled();
     expect(message.sendMessage).toBeCalled();
+  });
+
+  it('should replay error message', async () => {
+    parse.mockImplementation(async () => ({demobox: {url: 'aa', time: 'faaf'}, errors: ['NOT_LATEST']}));
+    await handle({
+      text: 'PTAL: https://github.com/UrbanCompass/uc-frontend/pull/43089',
+      user: 'U01EJL92F0F'
+    });
+    expect(parse).toBeCalledWith('43089');
+    expect(message.sendMessage).toBeCalledWith(undefined, undefined, {text: expect.stringContaining(' (faaf)\nAttention: It\'s not the latest demobox. Please rebuild again.')});
   });
 
   it('should not send message when parse return null', async () => {

@@ -35,6 +35,12 @@ Jira: ${info.jira.url}`;
 Demobox: ${info.demobox.url} (${info.demobox.time})`;
   }
 
+  if (info.errors && info.errors.length) {
+    message += `
+Attention: It\'s not the latest demobox. Please rebuild again.
+    `
+  }
+
   if (!message) return;
   await sendMessage(channel, threadTs, {text: message});
 }
