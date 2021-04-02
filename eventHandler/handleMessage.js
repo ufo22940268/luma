@@ -38,7 +38,7 @@ Demobox: ${info.demobox.url} (${info.demobox.time})`;
   if (info.errors && info.errors.length) {
     message += `
     
-*Attention: It\'s not the latest demobox. Please rebuild again.*
+*Attention: It\'s not the latest demobox.*
     `
   }
 

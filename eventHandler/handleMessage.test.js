@@ -42,7 +42,7 @@ describe('Event Handler', () => {
       user: 'U01EJL92F0F'
     });
     expect(parse).toBeCalledWith('43089');
-    expect(message.sendMessage).toBeCalledWith(undefined, undefined, {text: expect.stringContaining('Attention: It\'s not the latest demobox. Please rebuild again.*')});
+    expect(message.sendMessage).toBeCalledWith(undefined, undefined, {text: expect.stringContaining('Attention: It\'s not the latest demobox.*')});
   });
 
   it('should not send message when parse return null', async () => {
