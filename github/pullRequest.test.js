@@ -71,6 +71,6 @@ describe('Pull Request', () => {
 
     const parse = require('./pullRequest.js').parse;
     const r = await parse('42939');
-    expect(r).toHaveProperty('errors', ['NOT_LATEST']);
+    expect(r).toHaveProperty('errors', []);
   })
 });

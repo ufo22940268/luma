@@ -52,9 +52,9 @@ async function isLatestDemobox(demobox, pullRequestId) {
   if (!commitId) return true;
 
   const match = demobox.url.match(/hydra-\d+-([^-]+)/)
-  if (!match) return true;
+  if (!match || !match[1]) return true;
 
-  return match[1] == commitId;
+  return match[1] === commitId.slice(0, 7);
 }
 
 exports.parse = async (pullRequestId) => {
