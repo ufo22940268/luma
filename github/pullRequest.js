@@ -6,7 +6,9 @@ const {COMPASS_FRONTEND_REPO} = require("../constants");
 const {COMPASS_OWNER} = require("../constants");
 
 function parseUrlFromBody(body) {
-  return body.match(/\((http:.+)\)/)[1];
+  let url = body.match(/\((http:.+)\)/)[1];
+  url = url.replace(/^http:/, 'https:');
+  return url;
 }
 
 async function parseDemobox(pullRequestId) {

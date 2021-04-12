@@ -19,6 +19,7 @@ describe('Pull Request', () => {
     const r = await parse('42939');
     expect(r).toHaveProperty('demobox', expect.anything());
     expect(r.demobox).toHaveProperty('url', expect.stringMatching(/sign-center$/));
+    expect(r.demobox).toHaveProperty('url', expect.stringMatching(/https:/));
     expect(r.demobox).toHaveProperty('time', expect.anything());
   });
 
